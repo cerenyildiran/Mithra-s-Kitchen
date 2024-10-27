@@ -133,7 +133,33 @@ def delete_reservation(request, id):
     if request.method == 'POST':
         reservation.delete()
         messages.success(request, 'Reservation deleted successfully.')
-        return redirect('/reservation/?section=myreservations') 
+        return redirect('/reservation/?section=myreservations')
+
+
+
+@login_required
+def update_reservation(request, id):
+    reservation = get_object_or_404(Reservation, id=id)
+    
+    if request.method == 'POST':
+        # Update the reservation details from the form data
+        reservation.date = request.POST.get('date')
+        reservation.time = request.POST.get('time')
+        reservation.guests = request.POST.get('guests')
+
+        # Save the updated reservation
+        reservation.save()
+        
+        # Add a success message
+        messages.success(request, 'Your reservation has been updated successfully.')
+
+        # Redirect to a new URL: You might want to redirect to the reservation listing page
+        return redirect('reservation')  # Replace 'your_reservations_url' with the name of your target URL
+    
+    # If not a POST request, just redirect to the reservation form or display an error
+    else:
+        messages.error(request, 'Invalid request')
+        return redirect('reservation')
 
 def vegan(request):
     return render(request, 'vegan.html')

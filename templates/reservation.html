@@ -90,12 +90,40 @@
                     <td>{{ reservation.time }}</td>
                     <td>{{ reservation.guests }}</td>
                     <td>
+                      <a href="{% url 'reservation' %}?edit={{ reservation.id }}" class="btn btn-primary">Update</a>
                       <form action="{% url 'delete_reservation' reservation.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete</button>
                       </form>
                     </td>
                   </tr>
+                  {% if request.GET.edit|stringformat:"s" == reservation.id|stringformat:"s" %}
+<tr>
+  <td colspan="5">
+    <form method="post" action="{% url 'update_reservation' reservation.id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="date-{{ reservation.id }}" class="form-label">Date</label>
+        <input type="date" class="form-control" name="date" id="date-{{ reservation.id }}" value="{{ reservation.date|date:'Y-m-d' }}" min="{{ today|date:'Y-m-d' }}" max="{{ one_month_ahead|date:'Y-m-d' }}" required>
+      </div>
+      <div class="mb-3">
+        <label for="time-{{ reservation.id }}" class="form-label">Time</label>
+        <select name="time" id="time-{{ reservation.id }}" class="form-control" required>
+          {% for hour in hours %}
+          <option value="{{ hour }}" {% if reservation.time|date:"H:i" == hour %}selected{% endif %}>{{ hour }}</option>
+          {% endfor %}
+        </select>
+        
+      </div>
+      <div class="mb-3">
+        <label for="guests-{{ reservation.id }}" class="form-label">Number of Guests</label>
+        <input type="number" class="form-control" name="guests" id="guests-{{ reservation.id }}" value="{{ reservation.guests }}" min="1" max="6" required>
+      </div>
+      <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+  </td>
+</tr>
+{% endif %}
                 {% endfor %}
               </tbody>
             </table>

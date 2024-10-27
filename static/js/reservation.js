@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       };
   
       try {
-        const response = await fetch('https://example.com/api/reserve/', { // Örnek bir API endpoint
+        const response = await fetch('https://example.com/api/reserve/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -32,5 +32,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('404/', views.custom_404_view, name='404'),
     path('delete-reservation/<int:id>/', views.delete_reservation, name='delete_reservation'),
+    path('update-reservation/<int:id>/', views.update_reservation, name='update_reservation'),
 
 ]

@@ -144,4 +144,54 @@ section{
 .mb-custom {
     margin-bottom: 2rem;
 }
+ /* Mobil Size */
+.btn, .form-control {
+    margin-bottom: 10px; 
+}
 
+.card {
+    margin-bottom: 20px; 
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {   
+    .col-md-3, .col-md-9 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .col-md-3 a.btn {
+        width: 100%;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .alert-dismissible {
+        width: 100%;
+        overflow: hidden; 
+    }
+
+    .table thead th {
+        min-width: 100px; 
+    }
+  
+    .form-control {
+        width: 100%;
+    }
+
+    .card {
+        padding: 10px;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-collapse {
+        margin-top: 20px; 
+    }
+}
